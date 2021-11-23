@@ -1,10 +1,10 @@
-#include <Adafruit_SoftServo.h>
+#include <Servo.h>
 
 volatile uint8_t counter = 0;
 unsigned long stagedTime = 0;
 unsigned long racingTime = 0;
 
-Adafruit_SoftServo esc;
+Servo esc;
 
 #define SERVOPIN  0                         // Servo control output pin
 #define LEDPIN    1                         // LED output pin
@@ -35,8 +35,8 @@ void setup() {
   pinMode(IRBEAMPIN, INPUT);                // Set up IR beam pin as input
   digitalWrite(IRBEAMPIN, HIGH);            // Enable then internal pull up resistor
   // Interupt Registers
-  OCR0A = 0xAF;                             // Set up a 2ms interrupt
-  TIMSK |= _BV(OCIE0A);
+  //OCR0A = 0xAF;                             // Set up a 2ms interrupt
+  //TIMSK |= _BV(OCIE0A);
 }
 
 void loop() {
@@ -82,10 +82,10 @@ void loop() {
 }
 
 // The SIGNAL(TIMER0_COMPA_vect) function is the interrupt that will be called by the microcontroller every 2 milliseconds
-SIGNAL(TIMER0_COMPA_vect) {
-  counter += 2;                             // Add two milliseconds to the elapsed time
-  if (counter >= 20) {                      // Has 20ms elapsed?
-    counter = 0;                            // Reset the timer
-    esc.refresh();                          // Refesh the software based servo control
-  }
-}
+// SIGNAL(TIMER0_COMPA_vect) {
+//   counter += 2;                             // Add two milliseconds to the elapsed time
+//   if (counter >= 20) {                      // Has 20ms elapsed?
+//     counter = 0;                            // Reset the timer
+//     esc.refresh();                          // Refesh the software based servo control
+//   }
+// }
